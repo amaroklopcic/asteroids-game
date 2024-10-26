@@ -1,0 +1,46 @@
+[gd_scene load_steps=5 format=3 uid="uid://ct7fl8n5tnf0i"]
+
+[ext_resource type="Script" path="res://scripts/hud.gd" id="1_clxco"]
+[ext_resource type="FontFile" uid="uid://dssxnjyv01axw" path="res://assets/fonts/Tiny5/Tiny5-Regular.ttf" id="2_f2rq0"]
+[ext_resource type="PackedScene" uid="uid://cfj273rbjjqa" path="res://scenes/life_point.tscn" id="3_2wvaw"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_k261h"]
+font = ExtResource("2_f2rq0")
+font_size = 48
+outline_size = 8
+outline_color = Color(0, 0, 0, 1)
+
+[node name="HUD" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_clxco")
+
+[node name="Score" type="Label" parent="."]
+layout_mode = 0
+offset_left = 14.0
+offset_top = 10.0
+offset_right = 301.0
+offset_bottom = 77.0
+text = "SCORE: 9999"
+label_settings = SubResource("LabelSettings_k261h")
+
+[node name="LifePoints" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 1.775
+anchor_right = 5.854
+anchor_bottom = 4.318
+offset_bottom = -85.72
+scale = Vector2(1.5, 1.5)
+
+[node name="LifePoint" parent="LifePoints" instance=ExtResource("3_2wvaw")]
+layout_mode = 2
+
+[node name="LifePoint2" parent="LifePoints" instance=ExtResource("3_2wvaw")]
+layout_mode = 2
+
+[node name="LifePoint3" parent="LifePoints" instance=ExtResource("3_2wvaw")]
+layout_mode = 2
