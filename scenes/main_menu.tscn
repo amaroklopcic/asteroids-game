@@ -1,0 +1,111 @@
+[gd_scene load_steps=7 format=3 uid="uid://ba58ayw623dby"]
+
+[ext_resource type="Theme" uid="uid://c4sdhuseyn3oi" path="res://resources/asteroids_theme.tres" id="1_b54sv"]
+[ext_resource type="FontFile" uid="uid://dssxnjyv01axw" path="res://assets/fonts/Tiny5/Tiny5-Regular.ttf" id="2_auouj"]
+[ext_resource type="Script" path="res://scripts/main_menu.gd" id="2_avegr"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4nsbx"]
+bg_color = Color(0.164706, 0.341176, 0.333333, 0.482353)
+
+[sub_resource type="LabelSettings" id="LabelSettings_1pvnk"]
+font = ExtResource("2_auouj")
+font_size = 64
+
+[sub_resource type="LabelSettings" id="LabelSettings_o7qdh"]
+font_size = 24
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_b54sv")
+script = ExtResource("2_avegr")
+
+[node name="MainMenuBackground" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_4nsbx")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+custom_minimum_size = Vector2(0, 500)
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Title" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Space Asteroids Unlimited"
+label_settings = SubResource("LabelSettings_1pvnk")
+uppercase = true
+
+[node name="MainMenu" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Main Menu"
+label_settings = SubResource("LabelSettings_1pvnk")
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="RestartGame" type="Button" parent="CenterContainer/VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(224, 57)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_auouj")
+text = "Restart Game"
+
+[node name="Quit" type="Button" parent="CenterContainer/VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(224, 57)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_auouj")
+text = "Quit to main menu"
+
+[node name="Settings" type="VBoxContainer" parent="CenterContainer/VBoxContainer"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/Settings"]
+layout_mode = 2
+text = "Settings"
+label_settings = SubResource("LabelSettings_o7qdh")
+
+[node name="MusicVolumeLabel" type="Label" parent="CenterContainer/VBoxContainer/Settings"]
+layout_mode = 2
+text = "Music Volume"
+
+[node name="MusicVolume" type="HSlider" parent="CenterContainer/VBoxContainer/Settings"]
+layout_mode = 2
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="SoundVolumeLabel" type="Label" parent="CenterContainer/VBoxContainer/Settings"]
+layout_mode = 2
+text = "Sound Volume"
+
+[node name="SoundVolume" type="HSlider" parent="CenterContainer/VBoxContainer/Settings"]
+layout_mode = 2
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[connection signal="pressed" from="CenterContainer/VBoxContainer/VBoxContainer/RestartGame" to="." method="_on_restart_game_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
+[connection signal="value_changed" from="CenterContainer/VBoxContainer/Settings/MusicVolume" to="." method="_on_music_volume_value_changed"]
+[connection signal="value_changed" from="CenterContainer/VBoxContainer/Settings/SoundVolume" to="." method="_on_sound_volume_value_changed"]

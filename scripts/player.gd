@@ -1,5 +1,6 @@
 class_name Player extends CharacterBody2D
 
+signal player_escape()
 signal laser_shot(laser: Node2D)
 signal player_hurt()
 
@@ -21,6 +22,9 @@ func _process(_delta: float) -> void:
 	if is_shooting and curtime >= last_shot_ts + (1000 / (rpm / 60)):
 		shoot_laser()
 		last_shot_ts = curtime
+
+	if Input.is_action_just_pressed("escape"):
+		player_escape.emit()
 
 
 func _physics_process(delta: float) -> void:

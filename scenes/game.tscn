@@ -1,9 +1,10 @@
-[gd_scene load_steps=15 format=3 uid="uid://bffrfa8ggt7re"]
+[gd_scene load_steps=16 format=3 uid="uid://bffrfa8ggt7re"]
 
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_3bcmq"]
 [ext_resource type="PackedScene" uid="uid://b3a2n3j4dwh40" path="res://scenes/player.tscn" id="1_iqssj"]
 [ext_resource type="PackedScene" uid="uid://ct7fl8n5tnf0i" path="res://scenes/hud.tscn" id="2_ck6dm"]
 [ext_resource type="PackedScene" uid="uid://igwormypkofq" path="res://scenes/asteroid.tscn" id="3_3cvar"]
+[ext_resource type="PackedScene" uid="uid://ba58ayw623dby" path="res://scenes/main_menu.tscn" id="4_17m80"]
 [ext_resource type="PackedScene" uid="uid://dp6x0jhrk7e2w" path="res://scenes/game_over.tscn" id="5_28hyh"]
 [ext_resource type="AudioStream" uid="uid://bs237v4ek8gmc" path="res://assets/sounds/block_break_1.wav" id="6_elmlp"]
 [ext_resource type="AudioStream" uid="uid://dumgsfa1cbafh" path="res://assets/sounds/Balloon start riding 2.wav" id="7_22oui"]
@@ -27,6 +28,8 @@ script = ExtResource("1_3bcmq")
 [node name="HUD" parent="UI" instance=ExtResource("2_ck6dm")]
 
 [node name="GameOver" parent="UI" instance=ExtResource("5_28hyh")]
+
+[node name="MainMenu" parent="UI" instance=ExtResource("4_17m80")]
 
 [node name="Player" parent="." instance=ExtResource("1_iqssj")]
 position = Vector2(666, 493)
@@ -62,4 +65,9 @@ script = ExtResource("11_5alqo")
 stream = SubResource("AudioStreamPlaylist_vwkx2")
 
 [connection signal="on_restart" from="UI/GameOver" to="." method="_on_game_over_on_restart"]
+[connection signal="music_volume_change" from="UI/MainMenu" to="." method="_on_main_menu_music_volume_change"]
+[connection signal="quit_to_main_menu" from="UI/MainMenu" to="." method="_on_main_menu_quit_to_main_menu"]
+[connection signal="restart_game" from="UI/MainMenu" to="." method="_on_main_menu_restart_game"]
+[connection signal="sound_volume_change" from="UI/MainMenu" to="." method="_on_main_menu_sound_volume_change"]
+[connection signal="player_escape" from="Player" to="." method="_on_player_player_escape"]
 [connection signal="player_hurt" from="Player" to="." method="_on_player_player_hurt"]

@@ -7,6 +7,7 @@ extends Node2D
 @onready var asteroids := $Asteroids
 @onready var hud := $UI/HUD
 @onready var game_over := $UI/GameOver
+@onready var main_menu := $UI/MainMenu
 
 var asteroid_scene = preload("res://scenes/asteroid.tscn")
 var last_asteroid_spawn_ts: float = 0
@@ -16,6 +17,7 @@ var player_score: int
 
 
 func _ready() -> void:
+	main_menu.visible = false
 	$MusicManager/BackgroundMusic.play()
 	update_player_score(0)
 	update_player_lives(3)
@@ -92,6 +94,8 @@ func reset():
 	player.process_mode = Node.PROCESS_MODE_INHERIT
 	game_over.visible = false
 
+	for laser in lasers.get_children():
+		laser.queue_free()
 	for asteroid in asteroids.get_children():
 		asteroid.queue_free()
 
@@ -110,3 +114,45 @@ func _on_player_hurt():
 	else:
 		update_player_lives(player_lives - 1)
 		$SoundManager/PlayerHurtAudio.play()
+
+
+func _on_player_player_escape() -> void:
+	# TODO: pause game physics
+	main_menu.visible = !main_menu.visible
+
+
+func _on_main_menu_restart_game() -> void:
+	reset()
+	main_menu.visible = false
+
+
+func _on_main_menu_music_volume_change(value: float) -> void:
+	var music_manager := $MusicManager/BackgroundMusic
+	music_manager.volume_db = convert_unit_interval_to_db(value)
+
+
+func _on_main_menu_sound_volume_change(value:float) -> void:
+	var sound_volume_db = convert_unit_interval_to_db(value)
+	for audio_player in $SoundManager.get_children():
+		audio_player.volume_db = sound_volume_db
+
+
+func convert_unit_interval_to_db(value: float) -> float:
+	assert(value <= 1 or value >= 0, "Volume value must be in range 0-100")
+
+	# normalize decibel range, which is actually -80 through 24, but anything passed 0
+	# heavily distorts the sound, and anything below -50 is effectively silent
+	var min_db := -50
+	var max_db := 0
+
+	# setting decibels in the audio stream is a logarithmic effect, so using the
+	# pow function to give the volume slider a more linear feel
+	var db_value = min_db + (max_db - min_db) * pow(value, 2.0)
+
+	assert(db_value <= max_db or db_value >= -50, "db_value must be in range -50 through 0")
+
+	return db_value
+
+
+func _on_main_menu_quit_to_main_menu() -> void:
+	get_tree().quit()
