@@ -1,0 +1,37 @@
+[gd_scene load_steps=4 format=3 uid="uid://dp6x0jhrk7e2w"]
+
+[ext_resource type="Script" path="res://scripts/game_over.gd" id="1_e1fe5"]
+[ext_resource type="FontFile" uid="uid://dssxnjyv01axw" path="res://assets/fonts/Tiny5/Tiny5-Regular.ttf" id="1_u23yu"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_w0p6a"]
+font = ExtResource("1_u23yu")
+font_size = 64
+
+[node name="GameOver" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_e1fe5")
+
+[node name="GameOverText" type="Label" parent="."]
+layout_mode = 0
+offset_left = 457.0
+offset_top = 230.0
+offset_right = 824.0
+offset_bottom = 318.0
+text = "GAME OVER"
+label_settings = SubResource("LabelSettings_w0p6a")
+
+[node name="Restart" type="Button" parent="."]
+layout_mode = 0
+offset_left = 517.0
+offset_top = 321.0
+offset_right = 741.0
+offset_bottom = 378.0
+theme_override_fonts/font = ExtResource("1_u23yu")
+text = "RESTART"
+
+[connection signal="button_up" from="Restart" to="." method="_on_restart_button_up"]

@@ -1,17 +1,14 @@
 class_name Player extends CharacterBody2D
 
 signal laser_shot(laser: Node2D)
-signal player_died()
-signal player_hurt(lives: int)
+signal player_hurt()
 
 var laser_scene = preload("res://scenes/laser.tscn")
 
-@export var player_lives: int = 3
 @export var rpm: float = 600
 @export var acceleration: int = 1000
 @export var max_speed: int = 400
 
-@onready var player_health: int = player_lives
 @onready var muzzle1 := $Muzzle1
 @onready var muzzle2 := $Muzzle2
 @onready var muzzle := muzzle1
@@ -70,13 +67,4 @@ func shoot_laser():
 
 
 func hurt_player():
-	player_lives -= 1
-	if player_lives == 0:
-		kill()
-	else:
-		player_hurt.emit(player_lives)
-
-
-func kill():
-	player_died.emit()
-	process_mode = Node.PROCESS_MODE_DISABLED
+	player_hurt.emit()

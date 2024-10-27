@@ -6,22 +6,21 @@ extends Node2D
 @onready var player := $Player
 @onready var asteroids := $Asteroids
 @onready var hud := $UI/HUD
+@onready var game_over := $UI/GameOver
 
 var asteroid_scene = preload("res://scenes/asteroid.tscn")
-
-var player_lives: int = 3
-var player_score: int = 0:
-	set(value):
-		player_score = value
-		hud.score = value
 var last_asteroid_spawn_ts: float = 0
+
+var player_lives: int
+var player_score: int
 
 
 func _ready() -> void:
-	player_lives = 3
-	player_score = 0
+	update_player_score(0)
+	update_player_lives(3)
 	player.connect("player_hurt", _on_player_hurt)
 	player.connect("laser_shot", _on_player_laser_shot)
+	game_over.visible = false
 
 	for asteroid in asteroids.get_children():
 		asteroid.connect("exploded", _on_asteroid_exploded)
@@ -38,11 +37,6 @@ func _process(_delta: float) -> void:
 		last_asteroid_spawn_ts = curtime
 
 
-func _on_player_hurt(lives_left: int):
-	player_lives = lives_left
-	hud.update_lives(lives_left)
-
-
 func _on_player_laser_shot(laser):
 	lasers.add_child(laser)
 
@@ -51,11 +45,11 @@ func _on_asteroid_exploded(pos, size):
 	# player reward
 	match size:
 		Asteroid.AsteroidSize.LARGE:
-			player_score += 100
+			update_player_score(player_score + 100)
 		Asteroid.AsteroidSize.MEDIUM:
-			player_score += 75
+			update_player_score(player_score + 75)
 		Asteroid.AsteroidSize.SMALL:
-			player_score += 25
+			update_player_score(player_score + 25)
 
 	# spawn child asteroids
 	for i in range(2):
@@ -68,9 +62,44 @@ func _on_asteroid_exploded(pos, size):
 				pass
 
 
+func update_player_lives(new_lives: int):
+	player_lives = new_lives
+	hud.update_lives(player_lives)
+
+
+func update_player_score(new_score: int):
+	player_score = new_score
+	hud.update_score(player_score)
+
+
 func spawn_asteroid(pos: Vector2, size: Asteroid.AsteroidSize):
 	var a = asteroid_scene.instantiate()
 	a.global_position = pos
 	a.asteroid_size = size
 	a.connect("exploded", _on_asteroid_exploded)
 	asteroids.call_deferred("add_child", a)
+
+
+func reset():
+	update_player_score(0)
+	update_player_lives(3)
+
+	player.velocity = Vector2(0, 0)
+	player.process_mode = Node.PROCESS_MODE_INHERIT
+	game_over.visible = false
+
+	for asteroid in asteroids.get_children():
+		asteroid.queue_free()
+
+
+func _on_game_over_on_restart() -> void:
+	reset()
+
+
+func _on_player_hurt():
+	if player_lives == 1:
+		update_player_lives(0)
+		game_over.visible = true
+		player.process_mode = Node.PROCESS_MODE_DISABLED
+	else:
+		update_player_lives(player_lives - 1)
