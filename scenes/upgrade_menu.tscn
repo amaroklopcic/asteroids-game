@@ -1,0 +1,75 @@
+[gd_scene load_steps=4 format=3 uid="uid://d0376144riixb"]
+
+[ext_resource type="FontFile" uid="uid://dssxnjyv01axw" path="res://assets/fonts/Tiny5/Tiny5-Regular.ttf" id="1_1jvuk"]
+[ext_resource type="Theme" uid="uid://c4sdhuseyn3oi" path="res://resources/asteroids_theme.tres" id="1_lryq6"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ik0sy"]
+font = ExtResource("1_1jvuk")
+font_size = 48
+
+[node name="UpgradeMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_lryq6")
+
+[node name="GridContainer" type="GridContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+columns = 3
+
+[node name="Panel" type="Panel" parent="GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="CenterContainer" type="CenterContainer" parent="GridContainer/Panel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 222.5
+offset_right = 633.5
+offset_bottom = 85.0
+grow_horizontal = 2
+
+[node name="Upgrades" type="MarginContainer" parent="GridContainer/Panel/CenterContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GridContainer/Panel/CenterContainer"]
+layout_mode = 2
+
+[node name="UpgradesLabel" type="Label" parent="GridContainer/Panel/CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Upgrades"
+label_settings = SubResource("LabelSettings_ik0sy")
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="GridContainer/Panel/CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Here are all the current upgrades you have unlocked."
+horizontal_alignment = 1
+
+[node name="UpgradesList" type="VBoxContainer" parent="GridContainer/Panel/CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Panel2" type="Panel" parent="GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Panel3" type="Panel" parent="GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Control" type="Control" parent="GridContainer"]
+layout_mode = 2
