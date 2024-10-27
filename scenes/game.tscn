@@ -1,10 +1,23 @@
-[gd_scene load_steps=6 format=3 uid="uid://bffrfa8ggt7re"]
+[gd_scene load_steps=15 format=3 uid="uid://bffrfa8ggt7re"]
 
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_3bcmq"]
 [ext_resource type="PackedScene" uid="uid://b3a2n3j4dwh40" path="res://scenes/player.tscn" id="1_iqssj"]
 [ext_resource type="PackedScene" uid="uid://ct7fl8n5tnf0i" path="res://scenes/hud.tscn" id="2_ck6dm"]
 [ext_resource type="PackedScene" uid="uid://igwormypkofq" path="res://scenes/asteroid.tscn" id="3_3cvar"]
 [ext_resource type="PackedScene" uid="uid://dp6x0jhrk7e2w" path="res://scenes/game_over.tscn" id="5_28hyh"]
+[ext_resource type="AudioStream" uid="uid://bs237v4ek8gmc" path="res://assets/sounds/block_break_1.wav" id="6_elmlp"]
+[ext_resource type="AudioStream" uid="uid://dumgsfa1cbafh" path="res://assets/sounds/Balloon start riding 2.wav" id="7_22oui"]
+[ext_resource type="AudioStream" uid="uid://dst4jvs44tbsr" path="res://assets/sounds/balloon_pop_1.wav" id="8_nahhe"]
+[ext_resource type="AudioStream" uid="uid://c3wsl058usd8g" path="res://assets/sounds/bubble_heavy_2.wav" id="8_xej1g"]
+[ext_resource type="AudioStream" uid="uid://cd3h4cnk2ajcp" path="res://assets/sounds/hit_damage_1.wav" id="10_6lqks"]
+[ext_resource type="Script" path="res://scripts/music_manager.gd" id="11_5alqo"]
+[ext_resource type="AudioStream" uid="uid://b6yr6os32htef" path="res://assets/music/neon-drive.mp3" id="12_op7hy"]
+[ext_resource type="AudioStream" uid="uid://tl2h00wcgwxk" path="res://assets/music/neon-gaming.mp3" id="13_7r5rn"]
+
+[sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_vwkx2"]
+stream_count = 2
+stream_0 = ExtResource("12_op7hy")
+stream_1 = ExtResource("13_7r5rn")
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_3bcmq")
@@ -24,6 +37,29 @@ position = Vector2(666, 493)
 
 [node name="Asteroid" parent="Asteroids" instance=ExtResource("3_3cvar")]
 position = Vector2(473, 317)
+
+[node name="SoundManager" type="Node" parent="."]
+
+[node name="PlayerHurtAudio" type="AudioStreamPlayer2D" parent="SoundManager"]
+stream = ExtResource("6_elmlp")
+
+[node name="GameOverAudio" type="AudioStreamPlayer2D" parent="SoundManager"]
+stream = ExtResource("7_22oui")
+
+[node name="PlayerShootAudio" type="AudioStreamPlayer2D" parent="SoundManager"]
+stream = ExtResource("8_nahhe")
+
+[node name="PlayerDeathAudio" type="AudioStreamPlayer2D" parent="SoundManager"]
+stream = ExtResource("8_xej1g")
+
+[node name="AsteroidHitAudio" type="AudioStreamPlayer2D" parent="SoundManager"]
+stream = ExtResource("10_6lqks")
+
+[node name="MusicManager" type="Node" parent="."]
+script = ExtResource("11_5alqo")
+
+[node name="BackgroundMusic" type="AudioStreamPlayer2D" parent="MusicManager"]
+stream = SubResource("AudioStreamPlaylist_vwkx2")
 
 [connection signal="on_restart" from="UI/GameOver" to="." method="_on_game_over_on_restart"]
 [connection signal="player_hurt" from="Player" to="." method="_on_player_player_hurt"]

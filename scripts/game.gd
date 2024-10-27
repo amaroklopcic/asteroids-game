@@ -16,6 +16,7 @@ var player_score: int
 
 
 func _ready() -> void:
+	$MusicManager/BackgroundMusic.play()
 	update_player_score(0)
 	update_player_lives(3)
 	player.connect("player_hurt", _on_player_hurt)
@@ -39,9 +40,12 @@ func _process(_delta: float) -> void:
 
 func _on_player_laser_shot(laser):
 	lasers.add_child(laser)
+	$SoundManager/PlayerShootAudio.play()
 
 
 func _on_asteroid_exploded(pos, size):
+	$SoundManager/AsteroidHitAudio.play()
+
 	# player reward
 	match size:
 		Asteroid.AsteroidSize.LARGE:
@@ -101,5 +105,8 @@ func _on_player_hurt():
 		update_player_lives(0)
 		game_over.visible = true
 		player.process_mode = Node.PROCESS_MODE_DISABLED
+		$SoundManager/PlayerDeathAudio.play()
+		$SoundManager/GameOverAudio.play()
 	else:
 		update_player_lives(player_lives - 1)
+		$SoundManager/PlayerHurtAudio.play()
