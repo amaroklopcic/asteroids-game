@@ -66,6 +66,19 @@ escape={
 ]
 }
 
+[layer_names]
+
+2d_physics/layer_1="Player"
+2d_physics/layer_2="Player Weaponry / Lasers"
+2d_physics/layer_4="Asteroids"
+2d_physics/layer_5="Enemy AI"
+2d_physics/layer_6="Collectables"
+
+[physics]
+
+2d/default_gravity=0.0
+2d/default_gravity_vector=Vector2(0, 0)
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"

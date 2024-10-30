@@ -13,6 +13,8 @@ var laser_scene = preload("res://scenes/laser.tscn")
 @onready var muzzle := muzzle1
 @onready var last_shot_ts: int = 0
 
+var last_hurt_ts: int
+
 
 func _ready() -> void:
 	visible = false
@@ -71,9 +73,10 @@ func _physics_process(delta: float) -> void:
 
 
 func shoot_laser():
-	var l = laser_scene.instantiate()
+	var l: RigidBody2D = laser_scene.instantiate()
 	l.global_position = muzzle.global_position
 	l.rotation = rotation
+	l.linear_velocity = velocity
 	shot_laser.emit(l)
 
 	# switch muzzle for next shot
@@ -81,4 +84,8 @@ func shoot_laser():
 
 
 func hurt_player():
-	GameState.hurt_player()
+	var curtime = Helpers.curtime()
+
+	if curtime >= last_hurt_ts + 1000:
+		last_hurt_ts = curtime
+		GameState.hurt_player()

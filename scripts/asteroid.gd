@@ -1,4 +1,4 @@
-class_name Asteroid extends Area2D
+class_name Asteroid extends RigidBody2D
 
 signal exploded(pos: Vector2, size: AsteroidSize)
 
@@ -11,6 +11,7 @@ enum AsteroidSize { LARGE, MEDIUM, SMALL }
 var direction_vector := Vector2(0, -1)
 
 var speed: float = 10
+
 
 func _ready() -> void:
 	rotation = randf_range(0, PI * 2)
@@ -29,9 +30,15 @@ func _ready() -> void:
 			sprite.texture = preload("res://assets/textures/meteorGrey_tiny1.png")
 			collision_body.shape = preload("res://resources/asteroid_collision_shape_small.tres")
 
+	linear_velocity = direction_vector.rotated(rotation) * speed
+
 
 func _physics_process(delta: float) -> void:
-	global_position += direction_vector.rotated(rotation) * speed * delta	
+	var collision := move_and_collide(linear_velocity * delta)
+	if collision != null:
+		var obj = collision.get_collider()
+		if obj is Player:
+			obj.hurt_player()
 
 	var radius: float = collision_body.shape.radius
 
@@ -50,9 +57,3 @@ func _physics_process(delta: float) -> void:
 func explode() -> void:
 	exploded.emit(global_position, asteroid_size)
 	queue_free()
-
-
-
-func _on_body_entered(body: Node2D) -> void:
-	if body is Player:
-		body.hurt_player()

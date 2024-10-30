@@ -20,12 +20,6 @@ func _ready() -> void:
 func _on_game_start() -> void:
 	print("starting game...")
 
-	# hide asteroids floating around in main_menu and disable their physics
-	for child in get_node("/root/Main/MainMenuBackground").get_children():
-		if child is Asteroid:
-			child.visible = false
-			child.set_physics_process(false)
-
 	# hide this main menu UI and initialize game state
 	visible = false
 	GameState.init()

@@ -1,18 +1,22 @@
-extends Area2D
+extends RigidBody2D
 
-@export var speed := 500
+@export var speed := 750
 
 var movement_vector := Vector2(0, -1)
 
+
+func _ready() -> void:
+	$VisibleOnScreenNotifier2D.connect("screen_exited", _on_screen_exited)
+
+
 func _physics_process(delta: float) -> void:
-	global_position += movement_vector.rotated(rotation) * speed * delta
+	var collision := move_and_collide(movement_vector.rotated(rotation) * speed * delta)
+	if collision != null:
+		var obj := collision.get_collider()
+		if obj is Asteroid:
+			obj.explode()
+			queue_free()
 
 
-func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
+func _on_screen_exited() -> void:
 	queue_free()
-
-
-func _on_area_entered(area:Area2D) -> void:
-	if area is Asteroid:
-		area.explode()
-		queue_free()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://b21k26nvs22t6"]
+[gd_scene load_steps=12 format=3 uid="uid://b21k26nvs22t6"]
 
 [ext_resource type="PackedScene" uid="uid://c3pp6y2ht72xl" path="res://scenes/main_menu.tscn" id="1_3qsv5"]
 [ext_resource type="PackedScene" uid="uid://ct7fl8n5tnf0i" path="res://scenes/hud.tscn" id="2_5psjy"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dp6x0jhrk7e2w" path="res://scenes/game_over.tscn" id="3_selgx"]
 [ext_resource type="PackedScene" uid="uid://ba58ayw623dby" path="res://scenes/escape_menu.tscn" id="4_7fsf6"]
 [ext_resource type="PackedScene" uid="uid://b3a2n3j4dwh40" path="res://scenes/player.tscn" id="4_vtxnt"]
+[ext_resource type="Script" path="res://scenes/main_menu_background.gd" id="5_pq4tb"]
 [ext_resource type="Script" path="res://scripts/game.gd" id="7_0txs5"]
 [ext_resource type="PackedScene" uid="uid://cg6xc7vtc0a1s" path="res://scenes/lasers_manager.tscn" id="9_iany7"]
 [ext_resource type="PackedScene" uid="uid://b5ceobn4p3myx" path="res://scenes/asteroids_manager.tscn" id="10_tvt7n"]
@@ -29,6 +30,7 @@ process_mode = 3
 visible = false
 
 [node name="MainMenuBackground" type="Node" parent="."]
+script = ExtResource("5_pq4tb")
 
 [node name="Starfield" parent="MainMenuBackground" instance=ExtResource("2_l75o0")]
 position = Vector2(1329, 349)
