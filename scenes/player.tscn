@@ -22,3 +22,5 @@ position = Vector2(47, -12)
 
 [node name="Muzzle2" type="Node2D" parent="."]
 position = Vector2(-47, -12)
+
+[node name="BlinkTimer" type="Timer" parent="."]
