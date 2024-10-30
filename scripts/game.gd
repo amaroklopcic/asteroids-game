@@ -9,6 +9,5 @@ func _ready() -> void:
 
 
 func _on_player_shot_laser(laser: Node2D):
-	print("laserssss")
 	lasers_manager.add_child(laser)
 	SoundManager.play(SoundManager.SoundType.PLAYER_SHOOT)
