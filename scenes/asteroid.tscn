@@ -1,8 +1,43 @@
-[gd_scene load_steps=4 format=3 uid="uid://igwormypkofq"]
+[gd_scene load_steps=10 format=3 uid="uid://igwormypkofq"]
 
 [ext_resource type="Script" path="res://scripts/asteroid.gd" id="1_7imlc"]
 [ext_resource type="Texture2D" uid="uid://b5hll8nd4s06w" path="res://assets/textures/meteorGrey_big4.png" id="1_fl7rd"]
 [ext_resource type="Shape2D" uid="uid://ctcigu3o3r64r" path="res://resources/asteroid_collision_shape_large.tres" id="3_dx3rs"]
+[ext_resource type="Texture2D" uid="uid://b7apsts4fok60" path="res://assets/textures/meteorGrey_tiny1.png" id="4_2e1ru"]
+
+[sub_resource type="Curve" id="Curve_7rdfh"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.246667, 1), 0.0, 0.0, 0, 0, Vector2(0.6, 0.472527), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_obfm5"]
+curve = SubResource("Curve_7rdfh")
+
+[sub_resource type="Curve" id="Curve_gnvm2"]
+min_value = -200.0
+max_value = 200.0
+_data = [Vector2(0, 200), 0.0, 0.0, 0, 0, Vector2(1, -15.3846), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_fatsk"]
+curve = SubResource("Curve_gnvm2")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_7htic"]
+particle_flag_disable_z = true
+direction = Vector3(5, 5, 0)
+spread = 180.0
+initial_velocity_min = 80.0
+initial_velocity_max = 300.0
+gravity = Vector3(0, 0, 0)
+linear_accel_curve = SubResource("CurveTexture_fatsk")
+damping_min = 50.0
+damping_max = 100.0
+scale_min = 0.3
+scale_max = 0.7
+alpha_curve = SubResource("CurveTexture_obfm5")
+turbulence_influence_min = 1.0
+turbulence_influence_max = 1.0
+turbulence_initial_displacement_min = -89.6
+turbulence_initial_displacement_max = 100.0
 
 [node name="Asteroid" type="RigidBody2D"]
 collision_layer = 8
@@ -15,3 +50,14 @@ texture = ExtResource("1_fl7rd")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = ExtResource("3_dx3rs")
+
+[node name="ExplosionEffect" type="GPUParticles2D" parent="."]
+process_mode = 3
+emitting = false
+amount = 16
+process_material = SubResource("ParticleProcessMaterial_7htic")
+texture = ExtResource("4_2e1ru")
+lifetime = 0.5
+one_shot = true
+speed_scale = 2.0
+explosiveness = 0.75
