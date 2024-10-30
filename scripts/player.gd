@@ -3,7 +3,6 @@ class_name Player extends CharacterBody2D
 signal shot_laser(laser: Node2D)
 
 var laser_scene = preload("res://scenes/laser.tscn")
-var player_hurt_shader = preload("res://resources/player_hurt.gdshader")
 
 @export var rpm: float = 600
 @export var acceleration: int = 1000
