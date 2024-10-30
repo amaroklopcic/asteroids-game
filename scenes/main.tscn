@@ -40,19 +40,8 @@ z_index = 10
 position = Vector2(319, 441)
 
 [node name="Asteroid2" parent="MainMenuBackground" instance=ExtResource("3_knvv5")]
-z_index = 11
-position = Vector2(961, 326)
-scale = Vector2(0.7, 0.7)
-
-[node name="Asteroid3" parent="MainMenuBackground" instance=ExtResource("3_knvv5")]
-z_index = 12
-position = Vector2(1922, 652)
-scale = Vector2(0.5, 0.5)
-
-[node name="Asteroid4" parent="MainMenuBackground" instance=ExtResource("3_knvv5")]
-z_index = 13
-position = Vector2(1922, 652)
-scale = Vector2(0.5, 0.5)
+z_index = 10
+position = Vector2(1004, 314)
 
 [node name="Game" type="Node2D" parent="."]
 process_mode = 1
@@ -61,6 +50,9 @@ script = ExtResource("7_0txs5")
 
 [node name="Player" parent="Game" instance=ExtResource("4_vtxnt")]
 position = Vector2(639, 355)
+rpm = null
+acceleration = null
+max_speed = null
 
 [node name="LasersManager" parent="Game" instance=ExtResource("9_iany7")]
 
