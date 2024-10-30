@@ -10,6 +10,7 @@ stream_0 = ExtResource("2_xtfmn")
 stream_1 = ExtResource("3_uvihe")
 
 [node name="MusicManager" type="Node"]
+process_mode = 3
 script = ExtResource("1_hk072")
 
 [node name="BackgroundMusic" type="AudioStreamPlayer2D" parent="."]

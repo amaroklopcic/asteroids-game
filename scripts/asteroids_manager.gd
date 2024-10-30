@@ -8,7 +8,12 @@ var last_asteroid_spawn_ts: int
 
 
 func _ready() -> void:
-	pass
+	GameState.on_game_reset.connect(_on_game_reset)
+
+
+func _on_game_reset():
+	for child in get_children():
+		child.queue_free()
 
 
 func spawn_asteroid(pos: Vector2, size: Asteroid.AsteroidSize):
@@ -25,11 +30,11 @@ func _on_asteroid_exploded(pos: Vector2, size: Asteroid.AsteroidSize):
 	# player reward
 	match size:
 		Asteroid.AsteroidSize.LARGE:
-			GameState.player_score += 100
+			GameState.set_player_score(GameState._player_score + 100)
 		Asteroid.AsteroidSize.MEDIUM:
-			GameState.player_score += 75
+			GameState.set_player_score(GameState._player_score + 75)
 		Asteroid.AsteroidSize.SMALL:
-			GameState.player_score += 25
+			GameState.set_player_score(GameState._player_score + 25)
 
 	# spawn child asteroids
 	for i in range(2):
@@ -43,9 +48,6 @@ func _on_asteroid_exploded(pos: Vector2, size: Asteroid.AsteroidSize):
 
 
 func _process(_delta: float) -> void:
-	if GameState.current_stage != GameState.Stage.RUNNING:
-		return
-
 	var screen_size := get_viewport_rect().size
 	var curtime := Helpers.curtime()
 

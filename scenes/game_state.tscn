@@ -3,4 +3,5 @@
 [ext_resource type="Script" path="res://scripts/game_state.gd" id="1_j1bxm"]
 
 [node name="GameState" type="Node"]
+process_mode = 3
 script = ExtResource("1_j1bxm")

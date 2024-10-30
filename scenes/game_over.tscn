@@ -38,5 +38,3 @@ custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_u23yu")
 text = "RESTART"
-
-[connection signal="button_up" from="CenterContainer/VBoxContainer/Restart" to="." method="_on_restart_button_up"]
