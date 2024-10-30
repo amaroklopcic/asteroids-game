@@ -1,0 +1,27 @@
+[gd_scene load_steps=7 format=3 uid="uid://c1kaof5i7je"]
+
+[ext_resource type="AudioStream" uid="uid://bs237v4ek8gmc" path="res://assets/sounds/block_break_1.wav" id="1_hrlue"]
+[ext_resource type="Script" path="res://scripts/sound_manager.gd" id="1_mlfkh"]
+[ext_resource type="AudioStream" uid="uid://dumgsfa1cbafh" path="res://assets/sounds/Balloon start riding 2.wav" id="2_6fywk"]
+[ext_resource type="AudioStream" uid="uid://dst4jvs44tbsr" path="res://assets/sounds/balloon_pop_1.wav" id="3_ly7u8"]
+[ext_resource type="AudioStream" uid="uid://c3wsl058usd8g" path="res://assets/sounds/bubble_heavy_2.wav" id="4_30lnu"]
+[ext_resource type="AudioStream" uid="uid://cd3h4cnk2ajcp" path="res://assets/sounds/hit_damage_1.wav" id="5_wjvr2"]
+
+[node name="SoundManager" type="Node"]
+script = ExtResource("1_mlfkh")
+volume = null
+
+[node name="PlayerHurtAudio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("1_hrlue")
+
+[node name="GameOverAudio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_6fywk")
+
+[node name="PlayerShootAudio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_ly7u8")
+
+[node name="PlayerDeathAudio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_30lnu")
+
+[node name="AsteroidHitAudio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_wjvr2")

@@ -6,8 +6,8 @@ signal sound_volume_change(value: float)
 
 
 func _ready() -> void:
-	print("initializing main menu...")
-	var game_start_button = $CenterContainer/VBoxContainer/VBoxContainer/StartGame
+	print("initializing escape menu...")
+	var game_start_button = $CenterContainer/VBoxContainer/VBoxContainer/RestartGame
 	game_start_button.connect("pressed", _on_game_start)
 	var game_quit_button = $CenterContainer/VBoxContainer/VBoxContainer/Quit
 	game_quit_button.connect("pressed", _on_game_quit)
@@ -28,7 +28,7 @@ func _on_game_start() -> void:
 
 	# hide this main menu UI and initialize game state
 	visible = false
-	GameState.init()
+	GameState.reset()
 
 	game_start.emit()
 
@@ -45,3 +45,8 @@ func _on_sound_volume_changed(value: float) -> void:
 func _on_music_volume_changed(value: float) -> void:
 	music_volume_change.emit(value)
 	MusicManager.volume = value
+
+
+func _process(_delta: float) -> void:
+	if Input.is_action_just_pressed("escape"):
+		visible = !visible

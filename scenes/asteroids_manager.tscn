@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://b5ceobn4p3myx"]
+
+[ext_resource type="Script" path="res://scripts/asteroids_manager.gd" id="1_wbjrr"]
+
+[node name="AsteroidsManager" type="Node2D"]
+script = ExtResource("1_wbjrr")
+asteroids_per_min = null

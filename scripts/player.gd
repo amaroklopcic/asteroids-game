@@ -1,8 +1,8 @@
 class_name Player extends CharacterBody2D
 
-signal player_escape()
-signal laser_shot(laser: Node2D)
-signal player_hurt()
+signal escape
+signal shot_laser(laser: Node2D)
+
 
 var laser_scene = preload("res://scenes/laser.tscn")
 
@@ -17,17 +17,25 @@ var laser_scene = preload("res://scenes/laser.tscn")
 
 
 func _process(_delta: float) -> void:
-	var curtime := Time.get_ticks_msec()
+	visible = true
+	if GameState.current_stage != GameState.Stage.RUNNING:
+		visible = false
+		return
+
+	var curtime := Helpers.curtime()
 	var is_shooting = Input.is_action_pressed("shoot")
 	if is_shooting and curtime >= last_shot_ts + (1000 / (rpm / 60)):
 		shoot_laser()
 		last_shot_ts = curtime
 
 	if Input.is_action_just_pressed("escape"):
-		player_escape.emit()
+		escape.emit()
 
 
 func _physics_process(delta: float) -> void:
+	if GameState.current_stage != GameState.Stage.RUNNING:
+		return
+
 	var offset := PI / 2
 
 	# rotate player body towards mouse position with 90 degree offset
@@ -64,11 +72,13 @@ func shoot_laser():
 	var l = laser_scene.instantiate()
 	l.global_position = muzzle.global_position
 	l.rotation = rotation
-	laser_shot.emit(l)
+	shot_laser.emit(l)
 
 	# switch muzzle for next shot
 	muzzle = muzzle1 if muzzle == muzzle2 else muzzle2	
 
 
 func hurt_player():
-	player_hurt.emit()
+	if GameState.player_lives == 0:
+		process_mode = Node.PROCESS_MODE_DISABLED
+	GameState.hurt_player()

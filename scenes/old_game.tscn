@@ -1,0 +1,67 @@
+[gd_scene load_steps=16 format=3 uid="uid://bffrfa8ggt7re"]
+
+[ext_resource type="Script" path="res://scripts/game.gd" id="1_0qhaa"]
+[ext_resource type="PackedScene" uid="uid://ct7fl8n5tnf0i" path="res://scenes/hud.tscn" id="2_xc2id"]
+[ext_resource type="PackedScene" uid="uid://dp6x0jhrk7e2w" path="res://scenes/game_over.tscn" id="3_a8bxe"]
+[ext_resource type="PackedScene" uid="uid://ba58ayw623dby" path="res://scenes/escape_menu.tscn" id="4_u511c"]
+[ext_resource type="PackedScene" uid="uid://b3a2n3j4dwh40" path="res://scenes/player.tscn" id="6_4kxfs"]
+[ext_resource type="PackedScene" uid="uid://b5ceobn4p3myx" path="res://scenes/asteroids_manager.tscn" id="6_q7yur"]
+[ext_resource type="AudioStream" uid="uid://bs237v4ek8gmc" path="res://assets/sounds/block_break_1.wav" id="8_hw86h"]
+[ext_resource type="AudioStream" uid="uid://dumgsfa1cbafh" path="res://assets/sounds/Balloon start riding 2.wav" id="9_atxs0"]
+[ext_resource type="AudioStream" uid="uid://dst4jvs44tbsr" path="res://assets/sounds/balloon_pop_1.wav" id="10_en6db"]
+[ext_resource type="AudioStream" uid="uid://c3wsl058usd8g" path="res://assets/sounds/bubble_heavy_2.wav" id="11_tq83u"]
+[ext_resource type="AudioStream" uid="uid://cd3h4cnk2ajcp" path="res://assets/sounds/hit_damage_1.wav" id="12_6cw53"]
+[ext_resource type="Script" path="res://scripts/music_manager.gd" id="13_17diy"]
+[ext_resource type="AudioStream" uid="uid://b6yr6os32htef" path="res://assets/music/neon-drive.mp3" id="14_mahoj"]
+[ext_resource type="AudioStream" uid="uid://tl2h00wcgwxk" path="res://assets/music/neon-gaming.mp3" id="15_y55rp"]
+
+[sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_vwkx2"]
+stream_count = 2
+stream_0 = ExtResource("14_mahoj")
+stream_1 = ExtResource("15_y55rp")
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_0qhaa")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="HUD" parent="UI" instance=ExtResource("2_xc2id")]
+
+[node name="GameOver" parent="UI" instance=ExtResource("3_a8bxe")]
+
+[node name="EscapeMenu" parent="UI" instance=ExtResource("4_u511c")]
+script = null
+
+[node name="Player" parent="." instance=ExtResource("6_4kxfs")]
+position = Vector2(666, 493)
+
+[node name="Lasers" type="Node" parent="."]
+
+[node name="Asteroids" parent="." instance=ExtResource("6_q7yur")]
+
+[node name="SoundManager" type="Node" parent="."]
+
+[node name="PlayerHurtAudio" type="AudioStreamPlayer2D" parent="SoundManager"]
+stream = ExtResource("8_hw86h")
+
+[node name="GameOverAudio" type="AudioStreamPlayer2D" parent="SoundManager"]
+stream = ExtResource("9_atxs0")
+
+[node name="PlayerShootAudio" type="AudioStreamPlayer2D" parent="SoundManager"]
+stream = ExtResource("10_en6db")
+
+[node name="PlayerDeathAudio" type="AudioStreamPlayer2D" parent="SoundManager"]
+stream = ExtResource("11_tq83u")
+
+[node name="AsteroidHitAudio" type="AudioStreamPlayer2D" parent="SoundManager"]
+stream = ExtResource("12_6cw53")
+
+[node name="MusicManager" type="Node" parent="."]
+script = ExtResource("13_17diy")
+
+[node name="BackgroundMusic" type="AudioStreamPlayer2D" parent="MusicManager"]
+stream = SubResource("AudioStreamPlaylist_vwkx2")
+
+[node name="Upgrades" type="Node" parent="."]
+
+[connection signal="on_restart" from="UI/GameOver" to="." method="_on_game_over_on_restart"]

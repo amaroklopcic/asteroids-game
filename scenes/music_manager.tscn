@@ -1,0 +1,16 @@
+[gd_scene load_steps=5 format=3 uid="uid://cxfwhprfvgi3s"]
+
+[ext_resource type="Script" path="res://scripts/music_manager.gd" id="1_hk072"]
+[ext_resource type="AudioStream" uid="uid://b6yr6os32htef" path="res://assets/music/neon-drive.mp3" id="2_xtfmn"]
+[ext_resource type="AudioStream" uid="uid://tl2h00wcgwxk" path="res://assets/music/neon-gaming.mp3" id="3_uvihe"]
+
+[sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_wc4k3"]
+stream_count = 2
+stream_0 = ExtResource("2_xtfmn")
+stream_1 = ExtResource("3_uvihe")
+
+[node name="MusicManager" type="Node"]
+script = ExtResource("1_hk072")
+
+[node name="BackgroundMusic" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamPlaylist_wc4k3")
