@@ -1,13 +1,21 @@
-[gd_scene load_steps=5 format=3 uid="uid://cxfwhprfvgi3s"]
+[gd_scene load_steps=9 format=3 uid="uid://cxfwhprfvgi3s"]
 
 [ext_resource type="Script" path="res://scripts/music_manager.gd" id="1_hk072"]
 [ext_resource type="AudioStream" uid="uid://b6yr6os32htef" path="res://assets/music/neon-drive.mp3" id="2_xtfmn"]
 [ext_resource type="AudioStream" uid="uid://tl2h00wcgwxk" path="res://assets/music/neon-gaming.mp3" id="3_uvihe"]
+[ext_resource type="AudioStream" uid="uid://b70ps80dwe4mo" path="res://assets/music/euphoria.mp3" id="4_6s8ym"]
+[ext_resource type="AudioStream" uid="uid://bi17gdc1wmyx" path="res://assets/music/exploring-the-cosmos.mp3" id="5_2oi0i"]
+[ext_resource type="AudioStream" uid="uid://bewvk1h1s73w2" path="res://assets/music/moebius.mp3" id="6_074bm"]
+[ext_resource type="AudioStream" uid="uid://3jyitak7gb15" path="res://assets/music/the-dying.mp3" id="7_esuif"]
 
 [sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_wc4k3"]
-stream_count = 2
+stream_count = 6
 stream_0 = ExtResource("2_xtfmn")
 stream_1 = ExtResource("3_uvihe")
+stream_2 = ExtResource("4_6s8ym")
+stream_3 = ExtResource("5_2oi0i")
+stream_4 = ExtResource("6_074bm")
+stream_5 = ExtResource("7_esuif")
 
 [node name="MusicManager" type="Node"]
 process_mode = 3

@@ -50,9 +50,6 @@ script = ExtResource("7_0txs5")
 
 [node name="Player" parent="Game" instance=ExtResource("4_vtxnt")]
 position = Vector2(639, 355)
-rpm = null
-acceleration = null
-max_speed = null
 
 [node name="LasersManager" parent="Game" instance=ExtResource("9_iany7")]
 
