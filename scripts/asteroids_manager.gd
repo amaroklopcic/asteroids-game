@@ -52,6 +52,10 @@ func _process(_delta: float) -> void:
 	var curtime := Helpers.curtime()
 
 	if curtime >= last_asteroid_spawn_ts + (1000.0 / (asteroids_per_min / 60.0)):
-		var random_pos = Vector2(randf_range(0, screen_size.x), randf_range(0, screen_size.y))
+		var random_pos = Vector2(randf_range(-100, 100), randf_range(-100, 100))
+		if random_pos.x >= 0:
+			random_pos.x += screen_size.x
+		if random_pos.y >= 0:
+			random_pos.y += screen_size.y
 		spawn_asteroid(random_pos, Asteroid.AsteroidSize.LARGE)
 		last_asteroid_spawn_ts = curtime
